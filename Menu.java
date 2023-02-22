@@ -28,6 +28,19 @@ public class Menu {
         System.out.println("\n----------Conversor de binário para decimal----------\nQuantos números deseja converter?");
     }
 
+    public boolean charNaoEZeroOuUm(char c){
+        if (Character.getNumericValue(c) != 0 || Character.getNumericValue(c) != 1)
+            return false;
+        return true;
+    }
+
+    public boolean verificaSeNumeroEstaEmBinario(String numero){
+        for (int i = 0; i < numero.length(); i++){
+            if (charNaoEZeroOuUm(numero.charAt(i)))
+                return false;
+        }
+        return true;
+    }
     public void rodaMenu(){
         boolean ativo = true;
         while (ativo){
@@ -35,8 +48,18 @@ public class Menu {
             int qtdDeNumeros = leInt();
 
             for (int i = 0; i < qtdDeNumeros; i++){
-                System.out.printf("Número %d: ", i+1);
-                String numeroBinario = leString();
+                String numeroBinarioEmString = null;
+                boolean vai = true;
+                while(vai) {
+                    System.out.printf("Número %d: ", i + 1);
+                    numeroBinarioEmString = leString();
+                    if (verificaSeNumeroEstaEmBinario(numeroBinarioEmString)){
+                        System.out.println("Número não está em binário. Por favor digite um número em binário para ser convertido.");
+                        vai = false;
+                    }
+
+                }
+                NumeroBinario numeroBinario = conversor.geraNovoNumeroBinario(numeroBinarioEmString);
                 conversor.adcionaNumeroBinarioNaArray(numeroBinario);
             }
             conversor.converteParaDecimal();
@@ -55,12 +78,4 @@ public class Menu {
             System.out.println(numeroBinario.getBinario() + " = " + numeroBinario.getDecimal());
         }
     }
-
-
-    //todo: menu pergunta quantos numeros serão convertidos
-    //todo: menu lê os numeros binários em string
-    //todo: menu manda o conversor converter em decimal
-    //todo: menu imprime para o usuário o resultado
-    //todo: menu pergunta se quer converter mais números
-    //if not, break;
 }

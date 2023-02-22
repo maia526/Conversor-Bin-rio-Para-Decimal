@@ -6,9 +6,12 @@ public class Conversor {
     public Conversor() {
         this.numerosBinarios = new ArrayList<>();
     }
-    public boolean adcionaNumeroBinarioNaArray(String numeroBinario){
+    public NumeroBinario geraNovoNumeroBinario(String numeroBinario){
         NumeroBinario n = new NumeroBinario(numeroBinario);
-        return numerosBinarios.add(n);
+        return n;
+    }
+    public boolean adcionaNumeroBinarioNaArray(NumeroBinario numeroBinario){
+        return numerosBinarios.add(numeroBinario);
     }
     public void converteParaDecimal(){
         int decimal;
